@@ -68,11 +68,11 @@ repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
 on_event = "InsertEnter"
 hook_add = '''
 source ~/.config/nvim/plugins/deoplete.rc.vim
 '''
+on_i = 1
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
@@ -88,3 +88,20 @@ on_ft = 'rust'
 hook_add = '''
 source ~/.config/nvim/plugins/rust.rc.vim
 '''
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+source ~/.config/nvim/plugins/anzu.rc.vim
+'''
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_source = '''
+    let g:rustfmt_autosave = 1
+    let g:rust_doc#define_map_K = 0
+'''
+
+[[plugins]]
+repo = 'tomasr/molokai'
