@@ -1,4 +1,5 @@
 set t_Co=256
+set encoding =UTF-8
 set number
 set autoindent
 set tabstop=2
@@ -172,3 +173,10 @@ function! EnableJavascript()
   let b:javascript_lib_use_d3 = 1
 endfunction
 autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
+
+hi MatchParen ctermbg=1
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>inoremap {<Enter> {}<Left><CR><ESC><S-o>
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1 
