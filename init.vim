@@ -17,6 +17,14 @@ set ignorecase "search　大文字小文字
 set showmatch
 set textwidth=0
 syntax enable
+set pumblend=5
+set termguicolors
+colorscheme molokai
+hi Normal guibg=NONE
+hi LineNr guibg=NONE
+hi VertSplit guibg=NONE
+hi Special guibg=NONE
+hi Identifier guibg=NONE
 
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -31,7 +39,6 @@ cnoremap <C-l> <Right>
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 nmap <C-]> <Space><Space>:%s/<C-r>///g<Left><Left>
 inoremap <silent> jj <ESC>:<C-u>w<CR>:" InsertMode抜けて保存
-inoremap <C-t> <Esc><Left>"zx"zpa
 
 map <C-t> :NERDTreeToggle<CR>
 
@@ -65,25 +72,7 @@ endif
 
 "End dein Scripts-------------------------
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 
 filetype plugin indent on
 set statusline=%F%r%h%=

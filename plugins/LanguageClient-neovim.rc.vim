@@ -1,3 +1,4 @@
+let g:deoplete#enable_at_startup = 1
 set hidden
 " settings for languages
 let g:LanguageClient_serverCommands = {
