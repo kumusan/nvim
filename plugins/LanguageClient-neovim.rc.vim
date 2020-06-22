@@ -5,6 +5,9 @@ let g:LanguageClient_serverCommands = {
             \ 'cpp': ['clangd'],
             \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
             \ 'vue': ['vls'],
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ 'javascript.jsx': ['javascript-typescript-stdio'],
+            \ 'typescript': ['javascript-typescript-stdio'],
             \ }
 
 

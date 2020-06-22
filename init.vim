@@ -38,7 +38,7 @@ cnoremap <C-l> <Right>
 
 nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 nmap <C-]> <Space><Space>:%s/<C-r>///g<Left><Left>
-inoremap <silent> jj <ESC>:<C-u>w<CR>:" InsertMode抜けて保存
+inoremap <silent> jj <ESC>:<C-u>w<CR>:" 保存
 
 map <C-t> :NERDTreeToggle<CR>
 
@@ -125,6 +125,9 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
 " goの設定
 let g:go_def_mapping_enabled = 0
 let g:go_fmt_autosave = 1
@@ -133,19 +136,42 @@ let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 
-" 保存時のみ実行する
-let g:ale_lint_on_text_changed = 0
 " 表示に関する設定
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
 let g:airline#extensions#ale#open_lnum_symbol = '('
 let g:airline#extensions#ale#close_lnum_symbol = ')'
 let g:ale_echo_msg_format = '[%linter%]%code: %%s'
 highlight link ALEErrorSign Tag
 highlight link ALEWarningSign StorageClass
 
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+let g:ale_fix_on_save = 1
+let b:ale_fixers = ['prettier', 'eslint']
+let b:ale_linter_aliases = ['javascript', 'vue']
+let b:ale_linter_aliases = ['css', 'javascript']
+let b:ale_linters = ['eslint', 'vls']
+let b:ale_linters = ['stylelint', 'eslint']
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'vue': ['eslint', 'vls'],
+\   'jsx': ['stylelint', 'eslint'],
+\}
+let g:ale_linter_aliases = {
+\   'vue': ['vue', 'javascript'],
+\   'jsx': ['css', 'javascript'],
+\}
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_completion_tsserver_autoimport = 1
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_set_highlights = 1
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+highlight ALEWarning ctermbg=DarkMagenta
 
 " javascript
 augroup MyVimrc
@@ -162,10 +188,12 @@ function! EnableJavascript()
   let b:javascript_lib_use_d3 = 1
 endfunction
 autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
+autocmd BufEnter *.tsx,*.jsx set filetype=typescript.tsx
+" dark red
+hi tsxTagName guifg=#E06C75
 
 hi MatchParen ctermbg=1
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
-inoremap (<Enter> ()<Left><CR><ESC><S-o>inoremap {<Enter> {}<Left><CR><ESC><S-o>
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1 
