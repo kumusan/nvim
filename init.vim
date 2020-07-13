@@ -3,7 +3,7 @@ set encoding =UTF-8
 set number
 set autoindent
 set tabstop=2
-set shiftwidth=2
+set shiftwidth=4
 set expandtab
 set splitright
 set clipboard=unnamed "yank clipboard
@@ -59,7 +59,7 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
+  call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0}) " ここエラー
   call dein#load_toml(s:toml_dir . '/lazy.toml', {'lazy': 1})
 
   call dein#end()
@@ -154,6 +154,7 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'vue': ['eslint', 'vls'],
 \   'jsx': ['stylelint', 'eslint'],
+\   'json': ['jsonlint'],
 \}
 let g:ale_linter_aliases = {
 \   'vue': ['vue', 'javascript'],
@@ -189,11 +190,34 @@ function! EnableJavascript()
 endfunction
 autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
 autocmd BufEnter *.tsx,*.jsx set filetype=typescript.tsx
+let g:javascript_plugin_jsdoc = 1
+
 " dark red
 hi tsxTagName guifg=#E06C75
 
 hi MatchParen ctermbg=1
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap " ""<Left>
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1 
+
+"json
+set conceallevel=0
+autocmd Filetype json setl conceallevel=0
+let g:vim_json_syntax_conceal = 0
+autocmd BufNewFile,BufRead *.json set filetype=json
+let g:syntastic_json_checkers=['jsonlint']
+augroup json_autocmd
+  autocmd!
+  autocmd FileType json set autoindent
+  autocmd FileType json set formatoptions=tcq2l
+  autocmd FileType json set textwidth=78 shiftwidth=2
+  autocmd FileType json set softtabstop=2 tabstop=8
+  autocmd FileType json set expandtab
+  autocmd FileType json set foldmethod=syntax
+augroup END
+
+au BufNewFile,BufRead *.vugu setf html
+au BufNewFile,BufRead *.v setf golang
+
